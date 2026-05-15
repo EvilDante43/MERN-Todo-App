@@ -91,12 +91,12 @@ const loginUser = async (req, res, next) => {
 // @route   POST /api/auth/logout
 // @access  Public
 const logoutUser = (req, res) => {
-  res.cookie('jwt', token, {
+  res.cookie('jwt', '', {
     httpOnly: true,
     secure: true,
     sameSite: 'none',
     path: '/',
-    maxAge: 30 * 24 * 60 * 60 * 1000,
+    expires: new Date(0),
   });
 
   res.status(200).json({
