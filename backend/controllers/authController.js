@@ -11,6 +11,7 @@ const generateToken = (res, userId) => {
     httpOnly: true,
     secure: true,
     sameSite: 'none',
+    path: '/',
     maxAge: 30 * 24 * 60 * 60 * 1000,
   });
 };
@@ -90,14 +91,12 @@ const loginUser = async (req, res, next) => {
 // @route   POST /api/auth/logout
 // @access  Public
 const logoutUser = (req, res) => {
-  res.cookie('jwt', '', {
+  res.cookie('jwt', token, {
     httpOnly: true,
-    expires: new Date(0),
-
-    secure: process.env.NODE_ENV === 'production',
-
-    sameSite:
-      process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+    secure: true,
+    sameSite: 'none',
+    path: '/',
+    maxAge: 30 * 24 * 60 * 60 * 1000,
   });
 
   res.status(200).json({
